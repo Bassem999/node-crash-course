@@ -8,7 +8,7 @@ var blogs;
 // Connecting To DataBase
 mongoose
     .connect(
-        "mongodb://localhost:27017/letters", {
+        "mongodb+srv://node_app:bassem011@cluster0.2iabr.mongodb.net/blog?retryWrites=true&w=majority", {
             useUnifiedTopology: true,
         }, {
             useNewUrlParser: true,
@@ -25,7 +25,6 @@ Blog.find((err, result) => {
         blogs = result;
     }
 });
-
 //  rendering Pug Files
 app.set("view engine", "pug");
 
@@ -65,10 +64,8 @@ app.post("/upload", function(req, res) {
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send("No files were uploaded.");
     }
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
     let sampleFile = req.files.sampleFile;
 
-    // Use the mv() method to place the file somewhere on your server
     sampleFile.mv(`${__dirname}/public/images/${sampleFile.name}`, function(
         err
     ) {
